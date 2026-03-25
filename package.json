@@ -9,9 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@sanity/client": "^7.20.0",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^4.22.0",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.6.0",
     "next": "16.2.1",
+    "next-sanity": "^11.6.12",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.72.0",
+    "sanity": "^4.22.0",
+    "styled-components": "^6.3.12",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
