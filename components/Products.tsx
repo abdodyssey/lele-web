@@ -149,20 +149,20 @@ export default async function Products() {
   return (
     <section id="produk" className="py-24 bg-[var(--color-cream)]">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-14">
-          <span className="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+        <div className="text-center mb-10 md:mb-14">
+          <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
             Produk Kami
           </span>
-          <h2 className="font-display text-4xl font-bold text-[var(--color-dark)] mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-dark mb-3">
             Jenis Bibit Tersedia
           </h2>
-          <p className="text-[var(--color-brown)] max-w-md mx-auto">
+          <p className="text-brown text-sm sm:text-base max-w-md mx-auto">
             Semua bibit dibesarkan di kolam kami sendiri. Pilih ukuran sesuai
             kebutuhan budidaya kamu.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((p) => (
             <ProductCard key={p._id} product={p} />
           ))}

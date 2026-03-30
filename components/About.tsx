@@ -50,17 +50,14 @@ export default function About() {
           </div>
 
           {/* Text side */}
-          <div className="order-1 md:order-2">
+          <div className="order-1 md:order-2 text-center md:text-left">
             <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
               Tentang Kami
             </span>
-            <h2 className="font-display text-4xl font-bold text-dark leading-tight mb-4">
-              Hatchery Lokal,{" "}
-              <span className="text-primary">
-                Kualitas Juara
-              </span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-dark leading-tight mb-4 mx-auto md:mx-0 max-w-sm">
+              Hatchery Lokal, <span className="text-primary">Kualitas Juara</span>
             </h2>
-            <p className="text-brown leading-relaxed mb-4">
+            <p className="text-brown text-base leading-relaxed mb-4">
               Kami adalah usaha budidaya bibit lele yang berpusat di{" "}
               <strong className="text-dark">
                 Palembang, Sumatera Selatan
@@ -68,7 +65,7 @@ export default function About() {
               . Kami melayani petambak rumahan hingga
               pengusaha budidaya skala menengah di seluruh Sumatera.
             </p>
-            <p className="text-brown leading-relaxed mb-8">
+            <p className="text-brown text-base leading-relaxed mb-8">
               Setiap bibit yang kami jual dibesarkan dengan standar kebersihan
               kolam yang ketat, pakan berprotein tinggi, dan dipantau langsung
               oleh tim berpengalaman.
