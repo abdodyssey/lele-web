@@ -4,7 +4,7 @@ import type { Product } from "@/types";
 
 export default function ProductCard({ product }: { product: Product }) {
   const waText = encodeURIComponent(
-    `Halo, saya mau pesan:\n*${product.name} ukuran ${product.size}*\nMin. order: ${product.minOrder}\n\nMohon info ketersediaan stok ya.`,
+    `Halo, saya mau pesan:\n*${product.name} ukuran ${product.size}*\n\nMohon info ketersediaan stok ya.`,
   );
   const waUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}?text=${waText}`;
 
@@ -51,20 +51,12 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.description}
         </p>
 
-        <div className="flex items-center justify-between mb-6 p-3 bg-cream rounded-2xl border border-cream-dark/50">
-          <div>
-            <div className="text-[10px] text-brown/60 uppercase font-bold mb-0.5 tracking-tight">Harga Mulai</div>
-            <div className="font-display font-black text-xl text-primary flex items-baseline gap-0.5">
-              <span className="text-xs font-bold italic">Rp</span>
-              {product.price.toLocaleString("id-ID")}
-              <span className="text-[10px] font-bold text-brown/40">/ekor</span>
-            </div>
-          </div>
-          <div className="text-right border-l border-cream-dark/50 pl-3">
-            <div className="text-[10px] text-brown/60 uppercase font-bold mb-0.5 tracking-tight">Min. Order</div>
-            <div className="text-sm font-bold text-dark">
-              {product.minOrder}
-            </div>
+        <div className="mb-6 p-4 bg-cream rounded-2xl border border-cream-dark/50 flex flex-col items-center justify-center">
+          <div className="text-[10px] text-brown/60 uppercase font-bold mb-1 tracking-widest">Harga Mulai</div>
+          <div className="font-display font-black text-2xl text-primary flex items-baseline gap-1">
+            <span className="text-sm font-bold italic">Rp</span>
+            {product.price.toLocaleString("id-ID")}
+            <span className="text-xs font-bold text-brown/40">/ekor</span>
           </div>
         </div>
 
