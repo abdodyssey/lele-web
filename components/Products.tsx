@@ -59,17 +59,17 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <div
-      className={`relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border ${product.isRecommended ? "border-[var(--color-primary)]" : "border-[var(--color-cream-dark)]"}`}
+      className={`group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border ${product.isRecommended ? "border-primary" : "border-cream-dark"}`}
     >
       {product.isRecommended && (
-        <div className="absolute top-3 right-3 z-10 bg-[var(--color-primary)] text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+        <div className="absolute top-3 right-3 z-10 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 shadow-lg">
           <Star size={10} fill="white" />
-          Paling Laku
+          TERLARIS
         </div>
       )}
 
       {/* Image */}
-      <div className="aspect-[4/3] bg-gradient-to-br from-[var(--color-green)]/10 to-[var(--color-cream-dark)] flex items-center justify-center">
+      <div className="aspect-4/3 bg-linear-to-br from-green/5 to-cream-dark/30 flex items-center justify-center overflow-hidden">
         {product.image ? (
           <Image
             src={
@@ -80,7 +80,7 @@ function ProductCard({ product }: { product: Product }) {
             alt={product.name}
             width={400}
             height={300}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
           <span className="text-5xl">🐟</span>
@@ -88,35 +88,34 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="p-5">
-        <div className="flex items-center gap-2 mb-1">
-          <BadgeCheck size={14} className="text-[var(--color-green)]" />
-          <span className="text-xs text-[var(--color-green)] font-semibold">
-            Tersedia
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-green" />
+          <span className="text-[10px] text-green font-bold uppercase tracking-wider">
+            Stok Ready
           </span>
         </div>
-        <h3 className="font-display font-bold text-[var(--color-dark)] text-lg">
+        <h3 className="font-display font-extrabold text-dark text-xl mb-1">
           {product.name}
         </h3>
-        <p className="text-xs text-[var(--color-brown)] mb-3">
-          Ukuran {product.size}
+        <p className="text-xs text-brown/70 font-medium mb-3">
+          Ukuran: <span className="text-dark">{product.size}</span>
         </p>
-        <p className="text-sm text-[var(--color-brown)] leading-relaxed mb-4">
+        <p className="text-sm text-brown leading-relaxed mb-6 line-clamp-2 min-h-[2.5rem]">
           {product.description}
         </p>
 
-        <div className="flex items-end justify-between mb-4">
+        <div className="flex items-center justify-between mb-6 p-3 bg-cream rounded-2xl border border-cream-dark/50">
           <div>
-            <div className="text-xs text-[var(--color-brown)]">Harga mulai</div>
-            <div className="font-display font-bold text-2xl text-[var(--color-primary)]">
-              Rp {product.price.toLocaleString("id-ID")}
-              <span className="text-sm font-normal text-[var(--color-brown)]">
-                /ekor
-              </span>
+            <div className="text-[10px] text-brown/60 uppercase font-bold mb-0.5 tracking-tight">Harga Mulai</div>
+            <div className="font-display font-black text-xl text-primary flex items-baseline gap-0.5">
+              <span className="text-xs font-bold italic">Rp</span>
+              {product.price.toLocaleString("id-ID")}
+              <span className="text-[10px] font-bold text-brown/40">/ekor</span>
             </div>
           </div>
-          <div className="text-right">
-            <div className="text-xs text-[var(--color-brown)]">Min. order</div>
-            <div className="text-sm font-semibold text-[var(--color-dark)]">
+          <div className="text-right border-l border-cream-dark/50 pl-3">
+            <div className="text-[10px] text-brown/60 uppercase font-bold mb-0.5 tracking-tight">Min. Order</div>
+            <div className="text-sm font-bold text-dark">
               {product.minOrder}
             </div>
           </div>
@@ -126,10 +125,10 @@ function ProductCard({ product }: { product: Product }) {
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white font-semibold py-3 rounded-2xl transition-colors text-sm"
+          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-orange-100 hover:shadow-orange-200 text-sm active:scale-95"
         >
-          <MessageCircle size={16} />
-          Pesan Sekarang
+          <MessageCircle size={18} fill="currentColor" className="text-white/20" />
+          Pesan via WhatsApp
         </a>
       </div>
     </div>
@@ -147,22 +146,22 @@ export default async function Products() {
   }
 
   return (
-    <section id="produk" className="py-24 bg-[var(--color-cream)]">
+    <section id="produk" className="py-24 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-10 md:mb-14">
-          <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+          <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-widest uppercase">
             Produk Kami
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-dark mb-3">
             Jenis Bibit Tersedia
           </h2>
-          <p className="text-brown text-sm sm:text-base max-w-md mx-auto">
-            Semua bibit dibesarkan di kolam kami sendiri. Pilih ukuran sesuai
-            kebutuhan budidaya kamu.
+          <p className="text-brown text-base max-w-md mx-auto">
+            Semua bibit dibesarkan di kolam kami sendiri dengan standar QC yang
+            ketat.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6">
           {products.map((p) => (
             <ProductCard key={p._id} product={p} />
           ))}

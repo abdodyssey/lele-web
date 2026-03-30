@@ -33,37 +33,38 @@ export default function HowToOrder() {
   return (
     <section id="cara-order" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-14">
-          <span className="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+        <div className="text-center mb-16">
+          <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-widest uppercase">
             Cara Order
           </span>
-          <h2 className="font-display text-4xl font-bold text-[var(--color-dark)] mb-3">
-            Mudah, Cepat, Langsung ke WA
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-dark mb-4">
+            Mudah, Cepat, <span className="text-primary">Langsung ke WA</span>
           </h2>
-          <p className="text-[var(--color-brown)] max-w-md mx-auto">
-            Ga perlu ribet. Cukup chat kami, kami yang urus sisanya.
+          <p className="text-brown text-base sm:text-lg max-w-md mx-auto">
+            Hanya butuh beberapa langkah mudah untuk mendapatkan bibit lele
+            berkualitas di kolam Anda.
           </p>
         </div>
 
         {/* Steps */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-6 mb-16">
           {steps.map((s, i) => (
-            <div key={s.step} className="relative">
-              {/* Connector line */}
+            <div key={s.step} className="relative group">
+              {/* Connector line (Desktop only) */}
               {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-20 w-[calc(100%-5rem+1.5rem-1rem)] h-px border-t-[1.5px] border-dashed border-primary/20 z-0" />
+                <div className="hidden lg:block absolute top-8 left-20 w-[calc(100%-4rem)] h-px border-t-[1.5px] border-dashed border-primary/20 z-0" />
               )}
-              <div className="relative z-10 flex flex-col items-start">
-                <div className="w-16 h-16 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center mb-4">
-                  <s.icon size={28} className="text-[var(--color-primary)]" />
+              <div className="relative z-10 flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                  <s.icon size={28} className="text-primary" />
                 </div>
-                <div className="text-xs font-bold text-[var(--color-primary)]/40 mb-1 tracking-widest">
-                  {s.step}
+                <div className="text-xs font-bold text-primary/60 mb-2 tracking-widest uppercase">
+                  Langkah {s.step}
                 </div>
-                <h3 className="font-display font-bold text-[var(--color-dark)] text-lg mb-2">
+                <h3 className="font-display font-extrabold text-dark text-xl mb-3">
                   {s.title}
                 </h3>
-                <p className="text-sm text-[var(--color-brown)] leading-relaxed">
+                <p className="text-sm text-brown leading-relaxed max-w-[240px] sm:max-w-none">
                   {s.desc}
                 </p>
               </div>
@@ -72,12 +73,13 @@ export default function HowToOrder() {
         </div>
 
         {/* CTA Banner */}
-        <div className="bg-[var(--color-primary)] rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
-              Siap order bibit lele sekarang?
+        <div className="relative overflow-hidden bg-primary rounded-[2.5rem] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl shadow-orange-100">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="relative z-10 text-center md:text-left">
+            <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-3">
+              Siap order bibit lele Anda?
             </h3>
-            <p className="text-white/80 text-sm">
+            <p className="text-white/80 text-base md:text-lg">
               Tim kami online setiap hari. Respon cepat, konsultasi gratis!
             </p>
           </div>
@@ -85,10 +87,10 @@ export default function HowToOrder() {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-2 bg-white text-[var(--color-primary)] font-bold px-8 py-4 rounded-2xl hover:bg-[var(--color-cream)] transition-colors shadow-lg text-sm"
+            className="relative z-10 shrink-0 inline-flex items-center gap-3 bg-white text-primary font-bold px-10 py-5 rounded-2xl hover:bg-cream transition-all hover:scale-105 active:scale-95 shadow-xl text-base"
           >
-            <MessageCircle size={20} />
-            Chat Sekarang
+            <MessageCircle size={22} fill="currentColor" className="text-white" />
+            Chat WhatsApp Sekarang
           </a>
         </div>
       </div>
