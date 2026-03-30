@@ -10,46 +10,44 @@ async function getProducts(): Promise<Product[]> {
 // Fallback data kalau Sanity belum diisi
 const fallbackProducts: Product[] = [
   {
-    _id: "1",
-    name: "Bibit Lele Sangkuriang",
-    size: "1 cm",
-    price: 150,
-    minOrder: "1.000 ekor",
-    description:
-      "Ukuran paling kecil, cocok untuk yang mau membesarkan sendiri dari awal.",
-    image: null,
+    _id: "2",
+    name: "Bibit Nila",
+    size: "Campur",
+    price: 400,
+    minOrder: "500 ekor",
+    description: "Bibit ikan nila pilihan, kondisi sehat dan pertumbuhan cepat.",
+    image: "/images/nila.jpg",
     isRecommended: false,
   },
   {
-    _id: "2",
-    name: "Bibit Lele Sangkuriang",
-    size: "2 cm",
-    price: 250,
-    minOrder: "500 ekor",
-    description:
-      "Ukuran paling populer. Survival rate tinggi, pertumbuhan cepat.",
-    image: null,
-    isRecommended: true,
-  },
-  {
     _id: "3",
-    name: "Bibit Lele Sangkuriang",
-    size: "3 cm",
-    price: 400,
-    minOrder: "300 ekor",
-    description: "Sudah lebih kuat, cocok untuk kolam terpal atau kolam semen.",
-    image: null,
+    name: "Bibit Gurami",
+    size: "Kukuan/Jempol",
+    price: 3000,
+    minOrder: "100 ekor",
+    description: "Ukuran gurami kukuan, jempolan, silet biasa, hingga silet super.",
+    image: "/images/gurami.jpg",
     isRecommended: false,
   },
   {
     _id: "4",
-    name: "Bibit Lele Dumbo",
-    size: "2 cm",
-    price: 300,
+    name: "Bibit Patin",
+    size: "1 - 2,5 inch",
+    price: 350,
     minOrder: "500 ekor",
-    description: "Lele dumbo berukuran besar, daging tebal, favorit pasar.",
-    image: null,
+    description: "Ikan patin ukuran 1 - 2,5 inch, kondisi sehat dan lincah.",
+    image: "/images/patin.jpg",
     isRecommended: false,
+  },
+  {
+    _id: "5",
+    name: "Bibit Lele",
+    size: "2-3 s/d 4-6 cm",
+    price: 150,
+    minOrder: "1.000 ekor",
+    description: "Bibit lele dari ukuran 2-3, 3-4, 3-5, hingga 4-6 cm.",
+    image: "/images/lele.jpg",
+    isRecommended: true,
   },
 ];
 
@@ -74,7 +72,11 @@ function ProductCard({ product }: { product: Product }) {
       <div className="aspect-[4/3] bg-gradient-to-br from-[var(--color-green)]/10 to-[var(--color-cream-dark)] flex items-center justify-center">
         {product.image ? (
           <Image
-            src={urlFor(product.image).width(400).height(300).url()}
+            src={
+              typeof product.image === "string"
+                ? product.image
+                : urlFor(product.image).width(400).height(300).url()
+            }
             alt={product.name}
             width={400}
             height={300}

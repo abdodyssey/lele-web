@@ -7,7 +7,7 @@ export interface Product {
   price: number;
   minOrder: string;
   description: string;
-  image: SanityImageSource | null;
+  image: SanityImageSource | string | null;
   isRecommended: boolean;
 }
 
