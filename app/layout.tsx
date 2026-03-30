@@ -15,23 +15,23 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Bibit Lele Unggul Palembang | Segar & Sehat Langsung dari Kolam",
+  title: "Bibit Ikan Ari Palembang | Segar & Sehat Langsung dari Kolam",
   description:
-    "Supplier bibit lele berkualitas di Palembang. Melayani petambak rumahan hingga skala industri. Ukuran lengkap, harga terjangkau, pengiriman aman & terpercaya.",
-  keywords: ["bibit lele", "lele palembang", "benih ikan", "budidaya lele", "supplier lele"],
-  authors: [{ name: "Bibit Lele Unggul" }],
+    "Supplier bibit ikan berkualitas di Palembang. Melayani petambak rumahan hingga skala industri. Ukuran lengkap, harga terjangkau, pengiriman aman & terpercaya.",
+  keywords: ["bibit ikan", "ikan palembang", "lele palembang", "benih ikan", "budidaya ikan"],
+  authors: [{ name: "Bibit Ikan Ari" }],
   openGraph: {
-    title: "Bibit Lele Unggul Palembang | Kualitas Juara",
-    description: "Bibit lele sehat & segar langsung dari kolam. Siap tebar ke seluruh Sumatera.",
-    url: "https://leleunggul.com", // Ganti dengan domain asli nanti
-    siteName: "Bibit Lele Unggul",
+    title: "Bibit Ikan Ari Palembang | Kualitas Juara",
+    description: "Bibit ikan sehat & segar langsung dari kolam. Siap tebar ke seluruh Sumatera.",
+    url: "https://bibitikandari.com", // Ganti dengan domain asli nanti
+    siteName: "Bibit Ikan Ari",
     locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bibit Lele Unggul Palembang",
-    description: "Supplier bibit lele berkualitas dengan pengiriman aman.",
+    title: "Bibit Ikan Ari Palembang",
+    description: "Supplier bibit ikan berkualitas dengan pengiriman aman.",
   },
 };
 

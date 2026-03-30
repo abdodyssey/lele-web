@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, Fish } from "lucide-react";
+import { motion } from "framer-motion";
 
 const links = [
   { label: "Beranda", href: "#hero" },
@@ -21,7 +22,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? "bg-cream/95 backdrop-blur-sm shadow-sm"
@@ -34,12 +38,8 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
             <Fish size={16} className="text-white" />
           </div>
-          <span className="font-display font-bold text-dark text-lg leading-tight">
-            Bibit Lele
-            <br />
-            <span className="text-primary text-xs font-normal">
-              Unggul
-            </span>
+          <span className="font-display font-bold text-dark text-xl flex items-center gap-1.5">
+            Bibit Ikan <span className="text-primary italic">Ari</span>
           </span>
         </a>
 
@@ -99,6 +99,6 @@ export default function Navbar() {
           </a>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 }

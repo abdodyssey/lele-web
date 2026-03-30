@@ -1,4 +1,7 @@
+"use client";
+
 import { MessageCircle, ClipboardList, PackageCheck, Truck } from "lucide-react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -27,13 +30,33 @@ const steps = [
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
 export default function HowToOrder() {
   const waUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}?text=${encodeURIComponent("Halo, saya mau tanya-tanya soal bibit lele dulu 🐟")}`;
 
   return (
     <section id="cara-order" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
           <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-widest uppercase">
             Cara Order
           </span>
@@ -44,12 +67,18 @@ export default function HowToOrder() {
             Hanya butuh beberapa langkah mudah untuk mendapatkan bibit lele
             berkualitas di kolam Anda.
           </p>
-        </div>
+        </motion.div>
 
         {/* Steps */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-6 mb-16">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-6 mb-16"
+        >
           {steps.map((s, i) => (
-            <div key={s.step} className="relative group">
+            <motion.div key={s.step} variants={item} className="relative group">
               {/* Connector line (Desktop only) */}
               {i < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-8 left-20 w-[calc(100%-4rem)] h-px border-t-[1.5px] border-dashed border-primary/20 z-0" />
@@ -68,12 +97,18 @@ export default function HowToOrder() {
                   {s.desc}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA Banner */}
-        <div className="relative overflow-hidden bg-primary rounded-[2.5rem] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl shadow-orange-100">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden bg-primary rounded-[2.5rem] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl shadow-orange-100"
+        >
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="relative z-10 text-center md:text-left">
             <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-3">
@@ -92,7 +127,7 @@ export default function HowToOrder() {
             <MessageCircle size={22} fill="currentColor" className="text-white" />
             Chat WhatsApp Sekarang
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ export default function Footer() {
                 <Fish size={18} className="text-white" />
               </div>
               <span className="font-display font-bold text-xl">
-                Bibit Lele Unggul
+                Bibit Ikan Ari
               </span>
             </div>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs mb-6">
@@ -108,7 +108,7 @@ export default function Footer() {
                   size={15}
                   className="text-primary shrink-0"
                 />
-                <span>Senin – Sabtu, 07.00 – 17.00</span>
+                <span>Setiap Hari, 07.00 – 22.00</span>
               </li>
             </ul>
 
@@ -131,8 +131,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10 py-4 px-4">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/30">
-          <span>© 2025 Bibit Lele Unggul. All rights reserved.</span>
-          <span>Made with 🐟 in Palembang</span>
+          <span>© 2025 Bibit Ikan Ari. All rights reserved.</span>
         </div>
       </div>
     </footer>

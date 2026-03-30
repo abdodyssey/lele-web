@@ -1,5 +1,8 @@
+"use client";
+
 import { Leaf, Shield, Truck, HeartHandshake } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const values = [
   {
@@ -29,7 +32,13 @@ export default function About() {
     <section id="tentang" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative order-2 md:order-1">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative order-2 md:order-1"
+          >
             <div className="rounded-3xl overflow-hidden aspect-4/3 border-2 border-green/30 shadow-2xl">
               <Image
                 src="/images/about-farming.png"
@@ -47,10 +56,16 @@ export default function About() {
                 backgroundSize: "8px 8px",
               }}
             />
-          </div>
+          </motion.div>
 
           {/* Text side */}
-          <div className="order-1 md:order-2 text-center md:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="order-1 md:order-2 text-center md:text-left"
+          >
             <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
               Tentang Kami
             </span>
@@ -92,7 +107,7 @@ export default function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import { ArrowDown, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -15,7 +16,12 @@ export default function Hero() {
 
       <div className="relative max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center pt-20 md:pt-32 pb-16">
         {/* Text */}
-        <div className="text-center md:text-left">
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="text-center md:text-left"
+        >
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-dark leading-tight mb-4">
             Segar. <span className="text-primary">Sehat.</span>
             <br />
@@ -42,10 +48,15 @@ export default function Hero() {
               Lihat Produk
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Image placeholder */}
-        <div className="relative">
+        {/* Image */}
+        <motion.div
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="relative"
+        >
           <div className="aspect-square rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl">
             <Image
               src="/images/hero-pond.png"
@@ -55,7 +66,7 @@ export default function Hero() {
               className="w-full h-full object-cover"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
