@@ -59,7 +59,7 @@ export default function Hero() {
         >
           <div className="aspect-square rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl">
             <Image
-              src="/images/hero-pond.png"
+              src="/images/lele.jpg"
               alt="Kolam Bibit Lele"
               width={600}
               height={600}

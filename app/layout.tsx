@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Nunito } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const nunito = Nunito({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -42,7 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className={`${plusJakarta.variable} ${nunito.variable} antialiased`}>
+      <body className={`${outfit.variable} ${inter.variable} antialiased`}>
         {children}
       </body>
     </html>

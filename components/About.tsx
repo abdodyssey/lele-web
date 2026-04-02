@@ -41,7 +41,7 @@ export default function About() {
           >
             <div className="rounded-3xl overflow-hidden aspect-4/3 border-2 border-green/30 shadow-2xl">
               <Image
-                src="/images/about-farming.png"
+                src="/images/gallery-1.jpeg"
                 alt="Kegiatan Budidaya Lele"
                 width={600}
                 height={450}
