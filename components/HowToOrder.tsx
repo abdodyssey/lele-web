@@ -124,7 +124,7 @@ export default function HowToOrder() {
             rel="noopener noreferrer"
             className="relative z-10 shrink-0 inline-flex items-center gap-3 bg-white text-primary font-bold px-10 py-5 rounded-2xl hover:bg-cream transition-all hover:scale-105 active:scale-95 shadow-xl text-base"
           >
-            <MessageCircle size={22} fill="currentColor" className="text-white" />
+            <MessageCircle size={22} className="text-primary" />
             Chat WhatsApp Sekarang
           </a>
         </motion.div>
