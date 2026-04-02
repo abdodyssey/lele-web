@@ -36,7 +36,7 @@ export default function Hero() {
               href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}?text=Halo, saya mau tanya soal bibit lele`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-lg shadow-orange-200 text-sm sm:text-base"
+              className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-lg shadow-primary/30 text-sm sm:text-base"
             >
               <MessageCircle size={18} />
               Chat WhatsApp

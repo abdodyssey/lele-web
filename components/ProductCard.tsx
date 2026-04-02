@@ -64,7 +64,7 @@ export default function ProductCard({ product }: { product: Product }) {
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-orange-100 hover:shadow-orange-200 text-sm active:scale-95"
+          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 text-sm active:scale-95"
         >
           <MessageCircle size={18} fill="currentColor" className="text-white/20" />
           Pesan via WhatsApp
