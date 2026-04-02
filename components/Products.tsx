@@ -7,7 +7,8 @@ const products: Product[] = [
     name: "Bibit Nila",
     size: "Campur",
     price: 400,
-    description: "Bibit ikan nila pilihan, kondisi sehat dan pertumbuhan cepat.",
+    description:
+      "Bibit ikan nila pilihan, kondisi sehat dan pertumbuhan cepat.",
     image: "/images/nila.jpg",
     isRecommended: false,
   },
@@ -16,7 +17,8 @@ const products: Product[] = [
     name: "Bibit Gurami",
     size: "Kukuan/Jempol",
     price: 3000,
-    description: "Ukuran gurami kukuan, jempolan, silet biasa, hingga silet super.",
+    description:
+      "Ukuran gurami kukuan, jempolan, silet biasa, hingga silet super.",
     image: "/images/gurami.jpg",
     isRecommended: false,
   },
