@@ -1,148 +1,227 @@
 "use server";
 
-import fs from "fs/promises";
-import path from "path";
-import { Product } from "@/types";
 import { revalidatePath } from "next/cache";
+import { supabase } from "./supabase";
+import { Product, Settings, GalleryItem } from "@/types";
 
-const DATA_PATH = path.join(process.cwd(), "lib", "data.json");
-
-export interface GalleryItem {
-  _id: string;
-  src: string;
-  alt: string;
+// Types matching Supabase snake_case columns
+interface DBProduct extends Omit<Product, "isRecommended"> {
+  is_recommended: boolean;
+  created_at?: string;
 }
 
-interface SiteData {
-  products: Product[];
-  gallery: GalleryItem[];
-  settings: {
-    hero: {
-      title: string;
-      description: string;
-      image: string | null;
-      cta1Text: string;
-      cta2Text: string;
-    },
-    about: {
-      title: string;
-      description1: string;
-      description2: string;
-      image: string | null;
-      values: { title: string; desc: string; icon: string }[];
-    },
-    contact: {
-      address: string;
-      mapUrl: string;
-      phone: string;
-    }
-  }
-}
-
-async function getRawData(): Promise<SiteData> {
-  try {
-    const data = await fs.readFile(DATA_PATH, "utf8");
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("Error reading data:", error);
-    return { 
-      products: [], 
-      gallery: [],
-      settings: { 
-        hero: { title: "Segar. Sehat. Siap Tebar.", description: "", image: null, cta1Text: "Chat", cta2Text: "Lihat" },
-        about: { title: "Hatchery Lokal, Kualitas Juara", description1: "", description2: "", image: null, values: [] },
-        contact: { address: "", mapUrl: "", phone: "" }
-      } 
-    };
-  }
-}
-
-async function saveRawData(data: SiteData) {
-  try {
-    await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2), "utf8");
-    revalidatePath("/");
-    revalidatePath("/admin");
-  } catch (error) {
-    console.error("Error saving data:", error);
-    throw new Error("Failed to save data");
-  }
-}
+// ---------------------------------------------------------
+// PRODUCTS
+// ---------------------------------------------------------
 
 export async function getProducts(): Promise<Product[]> {
-  const data = await getRawData();
-  return data.products;
-}
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-export async function getGallery(): Promise<GalleryItem[]> {
-  const data = await getRawData();
-  return data.gallery;
-}
+  if (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
 
-export async function getSettings() {
-  const data = await getRawData();
-  return data.settings;
+  // Convert DB columns (snake_case) to Frontend types (camelCase)
+  return data.map((p: any) => ({
+    _id: p._id,
+    name: p.name,
+    size: p.size,
+    price: Number(p.price),
+    description: p.description,
+    image: p.image,
+    isRecommended: p.is_recommended,
+    status: p.status
+  }));
 }
 
 export async function addProduct(product: Omit<Product, "_id">) {
-  const data = await getRawData();
-  const newProduct: Product = {
-    ...product,
-    _id: Math.random().toString(36).substring(2, 9),
+  const dbProduct = {
+    name: product.name,
+    size: product.size,
+    price: product.price,
+    description: product.description,
+    image: product.image,
+    is_recommended: product.isRecommended,
+    status: product.status
   };
-  data.products.push(newProduct);
-  await saveRawData(data);
-  return newProduct;
-}
 
-export async function addGalleryItem(item: Omit<GalleryItem, "_id">) {
-  const data = await getRawData();
-  const newItem: GalleryItem = {
-    ...item,
-    _id: Math.random().toString(36).substring(2, 9),
-  };
-  data.gallery.push(newItem);
-  await saveRawData(data);
-  return newItem;
-}
+  const { data, error } = await supabase
+    .from("products")
+    .insert([dbProduct])
+    .select()
+    .single();
 
-export async function deleteGalleryItem(id: string) {
-  const data = await getRawData();
-  data.gallery = data.gallery.filter((g) => g._id !== id);
-  await saveRawData(data);
+  if (error) {
+    console.error("Error adding product:", error);
+    throw error;
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  return data;
 }
 
 export async function updateProduct(product: Product) {
-  const data = await getRawData();
-  const index = data.products.findIndex((p) => p._id === product._id);
-  if (index !== -1) {
-    data.products[index] = product;
-    await saveRawData(data);
-    return product;
+  const dbProduct = {
+    name: product.name,
+    size: product.size,
+    price: product.price,
+    description: product.description,
+    image: product.image,
+    is_recommended: product.isRecommended,
+    status: product.status
+  };
+
+  const { error } = await supabase
+    .from("products")
+    .update(dbProduct)
+    .eq("_id", product._id);
+
+  if (error) {
+    console.error("Error updating product:", error);
+    throw error;
   }
-  throw new Error("Product not found");
+
+  revalidatePath("/");
+  revalidatePath("/admin");
 }
 
 export async function deleteProduct(id: string) {
-  const data = await getRawData();
-  data.products = data.products.filter((p) => p._id !== id);
-  await saveRawData(data);
+  const { error } = await supabase
+    .from("products")
+    .delete()
+    .eq("_id", id);
+
+  if (error) {
+    console.error("Error deleting product:", error);
+    throw error;
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
 }
 
-export async function updateSettings(settings: SiteData["settings"]) {
-  const data = await getRawData();
-  data.settings = settings;
-  await saveRawData(data);
+// ---------------------------------------------------------
+// SETTINGS
+// ---------------------------------------------------------
+
+export async function getSettings(): Promise<Settings> {
+  const { data, error } = await supabase
+    .from("site_settings")
+    .select("*")
+    .eq("id", 1)
+    .single();
+
+  if (error) {
+    console.error("Error fetching settings:", error);
+    // Fallback settings if table is empty
+    return {
+      hero: { title: "Segar. Sehat. Siap Tebar.", description: "", image: null, cta1Text: "Chat", cta2Text: "Lihat" },
+      about: { title: "Hatchery Lokal", description1: "", description2: "", image: null, values: [] },
+      contact: { address: "", mapUrl: "", phone: "" }
+    };
+  }
+
+  return data as Settings;
 }
+
+export async function updateSettings(settings: Settings) {
+  const { error } = await supabase
+    .from("site_settings")
+    .update(settings)
+    .eq("id", 1);
+
+  if (error) {
+    console.error("Error updating settings:", error);
+    throw error;
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+}
+
+// ---------------------------------------------------------
+// GALLERY
+// ---------------------------------------------------------
+
+export async function getGallery(): Promise<GalleryItem[]> {
+  const { data, error } = await supabase
+    .from("gallery")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching gallery:", error);
+    return [];
+  }
+
+  return data as GalleryItem[];
+}
+
+export async function addGalleryItem(src: string) {
+  const { data, error } = await supabase
+    .from("gallery")
+    .insert([{ src, alt: "Gallery Image" }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error adding gallery item:", error);
+    throw error;
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  return data;
+}
+
+export async function deleteGalleryItem(id: string) {
+  const { error } = await supabase
+    .from("gallery")
+    .delete()
+    .eq("_id", id);
+
+  if (error) {
+    console.error("Error deleting gallery item:", error);
+    throw error;
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+}
+
+// ---------------------------------------------------------
+// IMAGE UPLOAD (Using Supabase Storage)
+// ---------------------------------------------------------
 
 export async function uploadImage(formData: FormData): Promise<string> {
   const file = formData.get("file") as File;
   if (!file) throw new Error("No file uploaded");
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
-  const publicPath = path.join(process.cwd(), "public", "images", filename);
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${Math.random()}-${Date.now()}.${fileExt}`;
+  
+  // We use a public bucket named 'lele-images'
+  const { data, error } = await supabase.storage
+    .from("lele-images")
+    .upload(fileName, file, {
+       contentType: file.type,
+       upsert: false
+    });
 
-  await fs.mkdir(path.join(process.cwd(), "public", "images"), { recursive: true });
-  await fs.writeFile(publicPath, buffer);
-  return `/images/${filename}`;
+  if (error) {
+    console.error("Error uploading image:", error);
+    throw error;
+  }
+
+  // Get the public URL
+  const { data: { publicUrl } } = supabase.storage
+    .from("lele-images")
+    .getPublicUrl(data.path);
+
+  return publicUrl;
 }
