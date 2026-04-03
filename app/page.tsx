@@ -6,14 +6,19 @@ import Gallery from "@/components/Gallery";
 import HowToOrder from "@/components/HowToOrder";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+import { getSettings, getGallery } from "@/lib/products";
+
+export default async function Home() {
+  const settings = await getSettings();
+  const gallery = await getGallery();
+
   return (
     <main>
       <Navbar />
-      <Hero />
-      <About />
+      <Hero settings={settings.hero} />
+      <About settings={settings.about} />
       <Products />
-      <Gallery />
+      <Gallery items={gallery} />
       <HowToOrder />
       <Footer />
     </main>

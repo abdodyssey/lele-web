@@ -4,7 +4,17 @@ import { ArrowDown, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function Hero() {
+export default function Hero({ 
+  settings 
+}: { 
+  settings: { 
+    title: string; 
+    description: string; 
+    image: string | null; 
+    cta1Text: string; 
+    cta2Text: string; 
+  } 
+}) {
   return (
     <section
       id="hero"
@@ -22,14 +32,11 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="text-center md:text-left"
         >
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-dark leading-tight mb-4">
-            Segar. <span className="text-primary">Sehat.</span>
-            <br />
-            Siap Tebar.
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-dark leading-tight mb-4 whitespace-pre-line">
+            {settings.title}
           </h1>
           <p className="text-brown text-base sm:text-lg leading-relaxed mb-8 max-w-md mx-auto md:mx-0">
-            Bibit lele unggul langsung dari kolam kami. Ukuran lengkap, harga
-            bersahabat, pengiriman ke seluruh wilayah.
+            {settings.description}
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-3">
             <a
@@ -39,13 +46,13 @@ export default function Hero() {
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-lg shadow-primary/30 text-sm sm:text-base"
             >
               <MessageCircle size={18} />
-              Chat WhatsApp
+              {settings.cta1Text}
             </a>
             <a
               href="#produk"
               className="inline-flex items-center gap-2 border border-brown/30 text-brown hover:border-primary hover:text-primary font-semibold px-6 py-3 rounded-full transition-colors text-sm sm:text-base"
             >
-              Lihat Produk
+              {settings.cta2Text}
             </a>
           </div>
         </motion.div>
@@ -59,7 +66,7 @@ export default function Hero() {
         >
           <div className="aspect-square rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl">
             <Image
-              src="/images/lele.jpg"
+              src={settings.image || "/images/lele.jpg"}
               alt="Kolam Bibit Lele"
               width={600}
               height={600}

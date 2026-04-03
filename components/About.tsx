@@ -4,30 +4,24 @@ import { Leaf, Shield, Truck, HeartHandshake } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const values = [
-  {
-    icon: Leaf,
-    title: "Bibit Alami",
-    desc: "Dibesarkan tanpa hormon buatan, pakan berkualitas, air bersih terjaga.",
-  },
-  {
-    icon: Shield,
-    title: "Terjamin Sehat",
-    desc: "Setiap bibit dicek sebelum pengiriman, bebas penyakit & cacat fisik.",
-  },
-  {
-    icon: Truck,
-    title: "Pengiriman Aman",
-    desc: "Dikemas khusus dengan oksigen, survival rate tinggi sampai tujuan.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Konsultasi Gratis",
-    desc: "Kami siap bantu dari pemilihan ukuran sampai tips budidaya via WA.",
-  },
-];
+const iconMap: { [key: string]: any } = {
+  Leaf,
+  Shield,
+  Truck,
+  HeartHandshake
+};
 
-export default function About() {
+interface AboutProps {
+  settings: {
+    title: string;
+    description1: string;
+    description2: string;
+    image: string | null;
+    values: { title: string; desc: string; icon: string }[];
+  }
+}
+
+export default function About({ settings }: AboutProps) {
   return (
     <section id="tentang" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
@@ -41,7 +35,7 @@ export default function About() {
           >
             <div className="rounded-3xl overflow-hidden aspect-4/3 border-2 border-green/30 shadow-2xl">
               <Image
-                src="/images/gallery-1.jpeg"
+                src={settings.image || "/images/gallery-1.jpeg"}
                 alt="Kegiatan Budidaya Lele"
                 width={600}
                 height={450}
@@ -69,43 +63,39 @@ export default function About() {
             <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
               Tentang Kami
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-dark leading-tight mb-4 mx-auto md:mx-0 max-w-sm">
-              Hatchery Lokal, <span className="text-primary">Kualitas Juara</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-dark leading-tight mb-4 mx-auto md:mx-0 max-w-sm whitespace-pre-line">
+              {settings.title}
             </h2>
             <p className="text-brown text-base leading-relaxed mb-4">
-              Kami adalah usaha budidaya bibit lele yang berpusat di{" "}
-              <strong className="text-dark">
-                Palembang, Sumatera Selatan
-              </strong>
-              . Kami melayani petambak rumahan hingga
-              pengusaha budidaya skala menengah di seluruh Sumatera.
+              {settings.description1}
             </p>
             <p className="text-brown text-base leading-relaxed mb-8">
-              Setiap bibit yang kami jual dibesarkan dengan standar kebersihan
-              kolam yang ketat, pakan berprotein tinggi, dan dipantau langsung
-              oleh tim berpengalaman.
+              {settings.description2}
             </p>
 
             {/* Values grid */}
             <div className="grid grid-cols-2 gap-4">
-              {values.map((v) => (
-                <div
-                  key={v.title}
-                  className="flex gap-3 p-3 rounded-xl hover:bg-cream transition-colors"
-                >
-                  <div className="shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <v.icon size={18} className="text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-dark text-sm">
-                      {v.title}
+              {settings.values.map((v) => {
+                const IconComp = iconMap[v.icon] || Shield;
+                return (
+                  <div
+                    key={v.title}
+                    className="flex gap-3 p-3 rounded-xl hover:bg-cream transition-colors text-left"
+                  >
+                    <div className="shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <IconComp size={18} className="text-primary" />
                     </div>
-                    <div className="text-xs text-brown leading-relaxed mt-0.5">
-                      {v.desc}
+                    <div>
+                      <div className="font-semibold text-dark text-sm">
+                        {v.title}
+                      </div>
+                      <div className="text-xs text-brown leading-relaxed mt-0.5">
+                        {v.desc}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
         </div>

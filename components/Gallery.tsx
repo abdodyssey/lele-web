@@ -2,14 +2,7 @@
 
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-
-const images = [
-  { id: 1, src: "/images/gallery-1.jpeg", alt: "Galeri 1", className: "col-span-2 md:col-span-2 row-span-2" },
-  { id: 2, src: "/images/gallery-2.jpeg", alt: "Galeri 2", className: "col-span-1" },
-  { id: 3, src: "/images/gallery-3.jpeg", alt: "Galeri 3", className: "col-span-1 md:col-span-1" },
-  { id: 4, src: "/images/gallery-4.jpeg", alt: "Galeri 4", className: "col-span-1 md:col-span-1" },
-  { id: 5, src: "/images/gallery-5.jpeg", alt: "Galeri 5", className: "col-span-1 md:col-span-1" },
-];
+import { GalleryItem } from "@/lib/products";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -30,7 +23,13 @@ const itemVariants: Variants = {
   },
 };
 
-export default function Gallery() {
+export default function Gallery({ items }: { items: GalleryItem[] }) {
+  // Helper to determine column span like the original design
+  const getClassName = (index: number) => {
+    if (index === 0) return "col-span-2 md:col-span-2 row-span-2";
+    return "col-span-1";
+  };
+
   return (
     <section id="galeri" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
@@ -53,11 +52,11 @@ export default function Gallery() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-[150px] md:auto-rows-[200px]"
         >
-          {images.map((image) => (
+          {items.map((image, index) => (
             <motion.div
-              key={image.id}
+              key={image._id}
               variants={itemVariants}
-              className={`relative rounded-2xl overflow-hidden group shadow-sm hover:shadow-md transition-shadow ${image.className}`}
+              className={`relative rounded-2xl overflow-hidden group shadow-sm hover:shadow-md transition-shadow ${getClassName(index)}`}
             >
               <Image
                 src={image.src}
