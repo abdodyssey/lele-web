@@ -1,75 +1,73 @@
+"use client";
+
 import {
   Fish,
   MapPin,
   Phone,
   Clock,
   MessageCircle,
+  ExternalLink
 } from "lucide-react";
 import { Instagram, Youtube } from "./BrandIcons";
+import { motion } from "framer-motion";
 
-export default function Footer() {
-  const waUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}`;
+interface FooterProps {
+  contact: {
+    address: string;
+    mapUrl: string;
+    phone: string;
+  }
+}
+
+export default function Footer({ contact }: FooterProps) {
+  const waUrl = `https://wa.me/${contact.phone}`;
 
   return (
-    <footer id="footer" className="bg-dark text-white">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
-                <Fish size={18} className="text-white" />
+    <footer id="footer" className="bg-primary text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+          
+          {/* Brand Column */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-accent flex items-center justify-center shadow-lg shadow-accent/20">
+                <Fish size={24} className="text-white" />
               </div>
-              <span className="font-display font-bold text-xl">
-                Bibit Ikan Ari
-              </span>
+              <div className="flex flex-col leading-none">
+                <span className="font-display font-black text-2xl uppercase tracking-tighter">
+                  BIBIT IKAN <span className="text-accent italic">ARI</span>
+                </span>
+                <span className="text-[10px] font-black uppercase text-white/30 tracking-[0.2em] mt-1">Hatchery & Budidaya</span>
+              </div>
             </div>
-            <p className="text-white/60 text-sm leading-relaxed max-w-xs mb-6">
-              Supplier bibit lele terpercaya di Palembang. Melayani petambak
-              rumahan hingga skala menengah di seluruh Sumatera.
+            <p className="text-white/50 text-sm md:text-base leading-relaxed max-w-sm font-medium">
+              Supplier bibit lele dan ikan air tawar terpercaya di Palembang. 
+              Mengutamakan kualitas benih unggul dengan tingkat mortalitas rendah untuk kesuksesan panen Anda.
             </p>
-            {/* Social */}
-            <div className="flex gap-3">
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
-              >
-                <Youtube size={16} />
-              </a>
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
-              >
-                <MessageCircle size={16} />
-              </a>
+            <div className="flex gap-4">
+              <SocialIcon href="#" icon={<Instagram size={20} />} />
+              <SocialIcon href="#" icon={<Youtube size={20} />} />
+              <SocialIcon href={waUrl} icon={<MessageCircle size={20} />} />
             </div>
           </div>
 
-          {/* Links */}
-          <div>
-            <h4 className="font-display font-semibold text-sm mb-4 text-white/80 uppercase tracking-wide">
-              Menu
-            </h4>
-            <ul className="space-y-2 text-sm text-white/50">
+          {/* Quick Links */}
+          <div className="space-y-8">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Navigasi</h4>
+            <ul className="space-y-4">
               {[
                 ["Beranda", "#hero"],
                 ["Tentang Kami", "#tentang"],
-                ["Produk", "#produk"],
+                ["Produk Kami", "#produk"],
+                ["Galeri Foto", "#galeri"],
                 ["Cara Order", "#cara-order"],
               ].map(([label, href]) => (
                 <li key={href}>
                   <a
                     href={href}
-                    className="hover:text-primary transition-colors"
+                    className="text-white/60 hover:text-accent font-bold transition-all flex items-center gap-2 group"
                   >
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent scale-0 group-hover:scale-100 transition-transform" />
                     {label}
                   </a>
                 </li>
@@ -77,63 +75,73 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="font-display font-semibold text-sm mb-4 text-white/80 uppercase tracking-wide">
-              Kontak & Lokasi
-            </h4>
-            <ul className="space-y-3 text-sm text-white/50">
-              <li className="flex gap-2 items-start">
-                <MapPin
-                  size={15}
-                  className="text-primary shrink-0 mt-0.5"
-                />
-                <span>
-                  Jl. Pulokerto RT 21 RW 04, Kec. Gandus,
-                  <br />
-                  Kel. Pulokerto, Palembang
-                </span>
-              </li>
-              <li className="flex gap-2 items-center">
-                <Phone
-                  size={15}
-                  className="text-primary shrink-0"
-                />
-                <a href={waUrl} className="hover:text-white transition-colors">
-                  +62 857-8837-3781
-                </a>
-              </li>
-              <li className="flex gap-2 items-center">
-                <Clock
-                  size={15}
-                  className="text-primary shrink-0"
-                />
-                <span>Setiap Hari, 07.00 – 22.00</span>
-              </li>
-            </ul>
-
-            {/* Google Maps Embed */}
-            <div className="mt-4 rounded-xl overflow-hidden h-32 border border-white/10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d127500.83623887521!2d104.6683240130133!3d-2.9860506504449043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sLokasi%20Jl.%20Pulokerto%20RT%2021%20RW%2004%20Kec.Gandus%20Kel.%20Pulokerto%20Palembang!5e0!3m2!1sen!2sid!4v1774880832275!5m2!1sen!2sid"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+          {/* Contact Column */}
+          <div className="space-y-8">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Hubungi Kami</h4>
+            <div className="space-y-6">
+              <ContactItem 
+                icon={<MapPin size={18} />} 
+                label="Lokasi Hatchery" 
+                value={contact.address} 
+                href={contact.mapUrl}
+              />
+              <ContactItem 
+                icon={<Phone size={18} />} 
+                label="WhatsApp" 
+                value={`+${contact.phone.slice(0,2)} ${contact.phone.slice(2,5)}-${contact.phone.slice(5,9)}-${contact.phone.slice(9)}`} 
+                href={waUrl}
+              />
+              <ContactItem 
+                icon={<Clock size={18} />} 
+                label="Jam Operasional" 
+                value="Setiap Hari, 07.00 – 22.00" 
+              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-white/10 py-4 px-4">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/30">
-          <span>© 2025 Bibit Ikan Ari. All rights reserved.</span>
+      {/* Bottom Bar */}
+      <div className="border-t border-white/5 py-10 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-black uppercase tracking-widest text-white/20 text-center md:text-left">
+          <span>© 2025 BIBIT IKAN ARI. ALL RIGHTS RESERVED. PALEMBANG, INDONESIA.</span>
+          <div className="flex items-center gap-8">
+             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
   );
+}
+
+function SocialIcon({ href, icon }: { href: string; icon: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 hover:bg-accent hover:border-accent hover:text-white flex items-center justify-center transition-all duration-300 hover:-translate-y-1 shadow-lg"
+    >
+      {icon}
+    </a>
+  );
+}
+
+function ContactItem({ icon, label, value, href }: { icon: React.ReactNode; label: string; value: string; href?: string }) {
+  const content = (
+    <div className="flex gap-4 group">
+      <div className="shrink-0 w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
+        {icon}
+      </div>
+      <div>
+        <p className="text-[9px] font-black uppercase tracking-widest text-white/20 mb-1">{label}</p>
+        <p className={`text-sm font-bold text-white/70 group-hover:text-white transition-colors flex items-center gap-1 leading-relaxed ${href ? 'underline decoration-white/10 underline-offset-4 decoration-1 hover:decoration-accent' : ''}`}>
+          {value}
+          {href && <ExternalLink size={12} className="opacity-30" />}
+        </p>
+      </div>
+    </div>
+  );
+
+  if (href) return <a href={href} target="_blank" rel="noopener noreferrer">{content}</a>;
+  return content;
 }

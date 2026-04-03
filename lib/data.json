@@ -72,6 +72,11 @@
         { "title": "Pengiriman Aman", "desc": "Dikemas khusus dengan oksigen, survival rate tinggi sampai tujuan.", "icon": "Truck" },
         { "title": "Konsultasi Gratis", "desc": "Kami siap bantu dari pemilihan ukuran sampai tips budidaya via WA.", "icon": "HeartHandshake" }
       ]
+    },
+    "contact": {
+      "address": "Jl. Pulo Kerto, Kec. Gandus, Kota Palembang, Sumatera Selatan 30149",
+      "mapUrl": "https://maps.app.goo.gl/t4HLetvWTHrhmHLU7",
+      "phone": "6285273784817"
     }
   }
 }

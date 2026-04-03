@@ -30,6 +30,11 @@ interface SiteData {
       description2: string;
       image: string | null;
       values: { title: string; desc: string; icon: string }[];
+    },
+    contact: {
+      address: string;
+      mapUrl: string;
+      phone: string;
     }
   }
 }
@@ -45,7 +50,8 @@ async function getRawData(): Promise<SiteData> {
       gallery: [],
       settings: { 
         hero: { title: "Segar. Sehat. Siap Tebar.", description: "", image: null, cta1Text: "Chat", cta2Text: "Lihat" },
-        about: { title: "Hatchery Lokal, Kualitas Juara", description1: "", description2: "", image: null, values: [] }
+        about: { title: "Hatchery Lokal, Kualitas Juara", description1: "", description2: "", image: null, values: [] },
+        contact: { address: "", mapUrl: "", phone: "" }
       } 
     };
   }

@@ -20,7 +20,7 @@ export default async function Home() {
       <Products />
       <Gallery items={gallery} />
       <HowToOrder />
-      <Footer />
+      <Footer contact={settings.contact} />
     </main>
   );
 }
