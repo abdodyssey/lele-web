@@ -7,7 +7,8 @@
       "price": 400,
       "description": "Bibit ikan nila pilihan, kondisi sehat dan pertumbuhan cepat.",
       "image": "/images/nila.jpg",
-      "isRecommended": false
+      "isRecommended": false,
+      "status": "available"
     },
     {
       "_id": "3",
@@ -16,7 +17,8 @@
       "price": 3000,
       "description": "Ukuran gurami kukuan, jempolan, silet biasa, hingga silet super.",
       "image": "/images/gurami.jpg",
-      "isRecommended": false
+      "isRecommended": false,
+      "status": "available"
     },
     {
       "_id": "4",
@@ -25,7 +27,8 @@
       "price": 350,
       "description": "Ikan patin ukuran 1 - 2.5 inch, kondisi sehat dan lincah.",
       "image": "/images/patin.jpg",
-      "isRecommended": false
+      "isRecommended": false,
+      "status": "available"
     },
     {
       "_id": "5",
@@ -34,24 +37,36 @@
       "price": 150,
       "description": "Bibit lele dari ukuran 2-3, 3-4, 3-5, hingga 4-6 cm.",
       "image": "/images/lele.jpg",
-      "isRecommended": true
-    },
-    {
-      "_id": "zxxfpfb",
-      "name": "jsdn",
-      "size": "ksdn",
-      "price": 9000,
-      "description": "nlnsjdb",
-      "image": "/images/1775223631773-art-1.jpeg",
-      "isRecommended": true
+      "isRecommended": true,
+      "status": "available"
     }
   ],
   "gallery": [
-    { "_id": "g1", "src": "/images/gallery-1.jpeg", "alt": "Galeri 1" },
-    { "_id": "g2", "src": "/images/gallery-2.jpeg", "alt": "Galeri 2" },
-    { "_id": "g3", "src": "/images/gallery-3.jpeg", "alt": "Galeri 3" },
-    { "_id": "g4", "src": "/images/gallery-4.jpeg", "alt": "Galeri 4" },
-    { "_id": "g5", "src": "/images/gallery-5.jpeg", "alt": "Galeri 5" }
+    {
+      "_id": "g1",
+      "src": "/images/gallery-1.jpeg",
+      "alt": "Galeri 1"
+    },
+    {
+      "_id": "g2",
+      "src": "/images/gallery-2.jpeg",
+      "alt": "Galeri 2"
+    },
+    {
+      "_id": "g3",
+      "src": "/images/gallery-3.jpeg",
+      "alt": "Galeri 3"
+    },
+    {
+      "_id": "g4",
+      "src": "/images/gallery-4.jpeg",
+      "alt": "Galeri 4"
+    },
+    {
+      "_id": "g5",
+      "src": "/images/gallery-5.jpeg",
+      "alt": "Galeri 5"
+    }
   ],
   "settings": {
     "hero": {
@@ -67,10 +82,26 @@
       "description2": "Setiap bibit yang kami jual dibesarkan dengan standar kebersihan kolam yang ketat, pakan berprotein tinggi, dan dipantau langsung oleh tim berpengalaman.",
       "image": "/images/gallery-1.jpeg",
       "values": [
-        { "title": "Bibit Alami", "desc": "Dibesarkan tanpa hormon buatan, pakan berkualitas, air bersih terjaga.", "icon": "Leaf" },
-        { "title": "Terjamin Sehat", "desc": "Setiap bibit dicek sebelum pengiriman, bebas penyakit & cacat fisik.", "icon": "Shield" },
-        { "title": "Pengiriman Aman", "desc": "Dikemas khusus dengan oksigen, survival rate tinggi sampai tujuan.", "icon": "Truck" },
-        { "title": "Konsultasi Gratis", "desc": "Kami siap bantu dari pemilihan ukuran sampai tips budidaya via WA.", "icon": "HeartHandshake" }
+        {
+          "title": "Bibit Alami",
+          "desc": "Dibesarkan tanpa hormon buatan, pakan berkualitas, air bersih terjaga.",
+          "icon": "Leaf"
+        },
+        {
+          "title": "Terjamin Sehat",
+          "desc": "Setiap bibit dicek sebelum pengiriman, bebas penyakit & cacat fisik.",
+          "icon": "Shield"
+        },
+        {
+          "title": "Pengiriman Aman",
+          "desc": "Dikemas khusus dengan oksigen, survival rate tinggi sampai tujuan.",
+          "icon": "Truck"
+        },
+        {
+          "title": "Konsultasi Gratis",
+          "desc": "Kami siap bantu dari pemilihan ukuran sampai tips budidaya via WA.",
+          "icon": "HeartHandshake"
+        }
       ]
     },
     "contact": {
