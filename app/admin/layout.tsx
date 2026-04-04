@@ -10,7 +10,8 @@ import {
   X,
   User,
   ExternalLink,
-  Loader2
+  Loader2,
+  Lock
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Toaster, toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { useEffect } from "react";
+import { Session } from "@supabase/supabase-js";
 
 export default function AdminLayout({
   children,
@@ -51,7 +53,7 @@ export default function AdminLayout({
     }
   };
 
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -210,6 +212,13 @@ function SidebarContent({ pathname, onLogout, onItemClick }: { pathname: string;
           icon={<LayoutDashboard size={18} />} 
           label="Isi Website" 
           active={pathname === "/admin/content"} 
+          onClick={onItemClick}
+        />
+        <SidebarLink 
+          href="/admin/settings" 
+          icon={<Lock size={18} />} 
+          label="Pengaturan" 
+          active={pathname === "/admin/settings"} 
           onClick={onItemClick}
         />
       </nav>
