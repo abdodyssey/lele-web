@@ -135,6 +135,7 @@ export default function ProductManagement({ initialProducts }: { initialProducts
         />
 
         {/* Desktop Table View */}
+        {/* Desktop Table View (Visible on lg and up) */}
         <div className="hidden lg:block overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -206,7 +207,67 @@ export default function ProductManagement({ initialProducts }: { initialProducts
           </table>
         </div>
 
-        <div className="p-8 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+        {/* Mobile Card View (Visible on < lg) */}
+        <div className="lg:hidden divide-y divide-slate-100">
+          {filteredProducts.map((product) => (
+            <div key={product._id} className="p-8 flex flex-col gap-6 hover:bg-slate-50/50 transition-all">
+              <div className="flex items-center gap-5">
+                <div className="w-16 h-16 rounded-2xl bg-slate-100 overflow-hidden shrink-0 border border-slate-200 relative shadow-inner">
+                  {product.image ? (
+                    <Image src={product.image} alt={product.name} fill sizes="64px" className="object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-slate-300"><Fish size={24} /></div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h4 className="font-black text-[#0f172a] text-lg tracking-tight leading-none">{product.name}</h4>
+                    {product.isRecommended && (
+                      <span className="px-1.5 py-0.5 rounded-md text-[8px] font-black bg-[#22c55e]/10 text-[#22c55e] uppercase tracking-widest border border-[#22c55e]/10">⭐</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{product.size}</p>
+                    <div className="w-1 h-1 rounded-full bg-slate-200" />
+                    <span className="text-sm font-black text-[#0f172a]">Rp{product.price.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  {product.status === "available" ? (
+                    <div className="flex items-center gap-2 text-[#22c55e]">
+                      <CheckCircle2 size={16} />
+                      <span className="text-[9px] font-black uppercase tracking-[0.2em]">Tersedia</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <XCircle size={16} />
+                      <span className="text-[9px] font-black uppercase tracking-[0.2em]">Stok Habis</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => openEdit(product)}
+                    className="p-3 bg-white border border-slate-200 text-slate-400 rounded-xl active:bg-slate-100 transition-all shadow-sm"
+                  >
+                    <Edit size={16} />
+                  </button>
+                  <button 
+                    onClick={() => openDelete(product)}
+                    className="p-3 bg-red-50 text-red-500 rounded-xl active:bg-red-500 active:text-white transition-all shadow-sm border border-red-100"
+                  >
+                    <Trash size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="p-8 lg:p-10 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Total {filteredProducts.length} Entitas Terpilih</p>
         </div>
       </div>

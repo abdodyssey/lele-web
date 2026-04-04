@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Toaster } from "sonner";
 
 export default function AdminLayout({
   children,
@@ -99,6 +100,7 @@ export default function AdminLayout({
         <div className="p-6 lg:p-12 max-w-7xl mx-auto w-full">
           {children}
         </div>
+        <Toaster position="top-right" richColors />
       </main>
     </div>
   );
@@ -123,6 +125,20 @@ function SidebarContent({ pathname, onItemClick }: { pathname: string; onItemCli
           icon={<LayoutDashboard size={18} />} 
           label="Dashboard Utama" 
           active={pathname === "/admin"} 
+          onClick={onItemClick}
+        />
+        <SidebarLink 
+          href="/admin/products" 
+          icon={<Fish size={18} />} 
+          label="Kelola Ikan" 
+          active={pathname === "/admin/products"} 
+          onClick={onItemClick}
+        />
+        <SidebarLink 
+          href="/admin/content" 
+          icon={<LayoutDashboard size={18} />} 
+          label="Isi Website" 
+          active={pathname === "/admin/content"} 
           onClick={onItemClick}
         />
       </nav>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { 
   Save, 
   Loader2, 
@@ -79,11 +80,11 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
         hero: { ...data, image: finalImagePath ?? null }
       };
       await updateSettings(updatedSettings);
-      alert("Hero Section diperbarui!");
+      toast.success("Hero Section diperbarui!");
       setActiveTab(null);
       router.refresh();
     } catch {
-      alert("Gagal update Hero");
+      toast.error("Gagal memperbarui Hero Section");
     } finally {
       setIsLoading(false);
     }
@@ -99,11 +100,11 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
         finalPath = await uploadImage(fd);
       }
       await updateSettings({ ...initialSettings, about: { ...initialSettings.about, ...data, image: finalPath ?? null } });
-      alert("About Section diperbarui!");
+      toast.success("Halaman About diperbarui!");
       setActiveTab(null);
       router.refresh();
     } catch {
-      alert("Gagal memperbarui About");
+      toast.error("Gagal memperbarui Halaman About");
     } finally {
       setIsLoading(false);
     }
@@ -119,9 +120,10 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
       await addGalleryItem(path);
       setSelectedGalleryFile(null);
       setGalleryPreview(null);
+      toast.success("Foto berhasil ditambahkan ke galeri!");
       router.refresh();
     } catch {
-      alert("Gagal menambah foto galeri");
+      toast.error("Gagal mengunggah foto ke galeri");
     } finally {
       setIsLoading(false);
     }
@@ -132,9 +134,10 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
     setIsLoading(true);
     try {
       await deleteGalleryItem(id);
+      toast.success("Foto dihapus!");
       router.refresh();
     } catch {
-      alert("Gagal hapus foto");
+      toast.error("Gagal menghapus foto");
     } finally {
       setIsLoading(false);
     }

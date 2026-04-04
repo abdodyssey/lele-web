@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { X, Save, Loader2, AlertCircle, Upload, Image as ImageIcon, CheckCircle2, XCircle } from "lucide-react";
+import { toast } from "sonner";
 import { Product } from "@/types";
 import { addProduct, updateProduct, deleteProduct, uploadImage } from "@/lib/products";
 import { useForm, UseFormRegister, UseFormHandleSubmit, FieldErrors, UseFormWatch } from "react-hook-form";
@@ -99,14 +100,16 @@ export default function ClientActions({
 
       if (mode === "edit" && product?._id) {
         await updateProduct({ ...productData, _id: product._id } as Product);
+        toast.success("Data produk berhasil diperbarui!");
       } else {
         await addProduct(productData as Product);
+        toast.success("Produk baru berhasil ditambahkan!");
       }
       setIsOpen(false);
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error(error);
-      alert("Gagal menyimpan data");
+      toast.error("Gagal menyimpan data. Silakan coba lagi.");
     } finally {
       setIsLoading(false);
     }
@@ -117,11 +120,12 @@ export default function ClientActions({
     setIsLoading(true);
     try {
       await deleteProduct(product._id);
+      toast.success("Produk telah dihapus.");
       if (setIsDeleteOpen) setIsDeleteOpen(false);
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error(error);
-      alert("Gagal menghapus data");
+      toast.error("Gagal menghapus produk.");
     } finally {
       setIsLoading(false);
     }
