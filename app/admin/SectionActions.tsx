@@ -112,7 +112,7 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
       const fd = new FormData();
       fd.append("file", selectedGalleryFile);
       const url = await uploadImage(fd);
-      const newItem = await addGalleryItem({ src: url, alt: "Gallery Image" });
+      const newItem = await addGalleryItem(url);
       setGalleryItems([...galleryItems, newItem]);
       setSelectedGalleryFile(null);
       setGalleryPreview(null);
