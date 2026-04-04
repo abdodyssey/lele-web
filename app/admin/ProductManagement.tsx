@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { 
   Fish, 
   DollarSign, 
@@ -18,8 +19,14 @@ import { Product } from "@/types";
 import ClientActions from "./ClientActions";
 
 export default function ProductManagement({ initialProducts }: { initialProducts: Product[] }) {
+  const router = useRouter();
   const [products, setProducts] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState("");
+
+  // Keep local state in sync with server data
+  useEffect(() => {
+    setProducts(initialProducts);
+  }, [initialProducts]);
   
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -122,8 +129,8 @@ export default function ProductManagement({ initialProducts }: { initialProducts
           mode={activeMode} 
           product={selectedProduct} 
           onSuccess={() => {
-            // In a real app, you'd re-fetch, but for this demo, refresh the page context
-            window.location.reload();
+            // Trigger server revalidation without full page reload
+            router.refresh();
           }}
         />
 

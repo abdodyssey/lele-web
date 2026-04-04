@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { 
   Save, 
   Loader2, 
@@ -40,6 +41,7 @@ type HeroFormData = z.infer<typeof heroSchema>;
 type AboutFormData = z.infer<typeof aboutSchema>;
 
 export default function SectionActions({ initialSettings, initialGallery }: { initialSettings: Settings, initialGallery: GalleryItem[] }) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"hero" | "about" | "gallery" | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -79,6 +81,7 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
       await updateSettings(updatedSettings);
       alert("Hero Section diperbarui!");
       setActiveTab(null);
+      router.refresh();
     } catch {
       alert("Gagal update Hero");
     } finally {
@@ -98,6 +101,7 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
       await updateSettings({ ...initialSettings, about: { ...initialSettings.about, ...data, image: finalPath ?? null } });
       alert("About Section diperbarui!");
       setActiveTab(null);
+      router.refresh();
     } catch {
       alert("Gagal memperbarui About");
     } finally {
@@ -109,13 +113,13 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
     if (!selectedGalleryFile) return;
     setIsLoading(true);
     try {
-      const fd = new FormData();
-      fd.append("file", selectedGalleryFile);
-      const url = await uploadImage(fd);
-      const newItem = await addGalleryItem(url);
-      setGalleryItems([...galleryItems, newItem]);
+      const formData = new FormData();
+      formData.append("file", selectedGalleryFile);
+      const path = await uploadImage(formData);
+      await addGalleryItem(path);
       setSelectedGalleryFile(null);
       setGalleryPreview(null);
+      router.refresh();
     } catch {
       alert("Gagal menambah foto galeri");
     } finally {
@@ -128,7 +132,7 @@ export default function SectionActions({ initialSettings, initialGallery }: { in
     setIsLoading(true);
     try {
       await deleteGalleryItem(id);
-      window.location.reload();
+      router.refresh();
     } catch {
       alert("Gagal hapus foto");
     } finally {
