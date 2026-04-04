@@ -9,12 +9,15 @@ import {
   Menu, 
   X,
   User,
-  ExternalLink
+  ExternalLink,
+  Loader2
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
+import { supabase } from "@/lib/supabase";
+import { useEffect } from "react";
 
 export default function AdminLayout({
   children,
@@ -23,14 +26,82 @@ export default function AdminLayout({
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Simple Protect Auth
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session && pathname !== "/admin/login") {
+        router.push("/admin/login");
+      }
+    };
+    checkUser();
+  }, [pathname, router]);
+
+  const handleLogout = async () => {
+    setIsMobileMenuOpen(false);
+    toast.loading("Memproses keluar...");
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error("Gagal Logout");
+    } else {
+      toast.success("Berhasil Logout!");
+      router.push("/admin/login");
+    }
+  };
+
+  const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+      if (!session && pathname !== "/admin/login") {
+        router.push("/admin/login");
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [pathname, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#22c55e]" size={40} />
+      </div>
+    );
+  }
+
+  // No layout frame for login
+  if (pathname === "/admin/login") {
+    return (
+      <div className="min-h-screen bg-slate-50 font-body">
+        {children}
+        <Toaster position="top-right" richColors />
+      </div>
+    );
+  }
+
+  // Redirect to login if NOT authenticated (extra safety)
+  if (!session) {
+     return null;
+  }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex font-body text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 flex font-body text-slate-900 overflow-x-hidden animate-in fade-in duration-500">
       {/* Sidebar Desktop */}
       <aside className="w-72 bg-[#020617] text-white p-8 hidden lg:flex flex-col border-r border-white/5 relative overflow-hidden">
         {/* Subtle Glows */}
         <div className="absolute top-[-10%] right-[-20%] w-64 h-64 bg-[#22c55e]/10 blur-[100px] rounded-full pointer-events-none" />
-        <SidebarContent pathname={pathname} />
+        <SidebarContent pathname={pathname} onLogout={handleLogout} />
       </aside>
 
       {/* Sidebar Mobile Overlay */}
@@ -57,7 +128,7 @@ export default function AdminLayout({
                   <X size={20} />
                 </button>
               </div>
-              <SidebarContent pathname={pathname} onItemClick={() => setIsMobileMenuOpen(false)} />
+              <SidebarContent pathname={pathname} onLogout={handleLogout} onItemClick={() => setIsMobileMenuOpen(false)} />
             </motion.aside>
           </>
         )}
@@ -106,7 +177,7 @@ export default function AdminLayout({
   );
 }
 
-function SidebarContent({ pathname, onItemClick }: { pathname: string; onItemClick?: () => void }) {
+function SidebarContent({ pathname, onLogout, onItemClick }: { pathname: string; onLogout?: () => void; onItemClick?: () => void }) {
   return (
     <>
       <div className="flex items-center gap-4 mb-16 px-2 relative z-10">
@@ -150,7 +221,10 @@ function SidebarContent({ pathname, onItemClick }: { pathname: string; onItemCli
           label="Lihat Situs" 
           onClick={onItemClick}
         />
-        <button className="flex items-center gap-4 w-full px-5 py-4 rounded-2xl text-white/40 hover:text-white hover:bg-white/5 transition-all text-[11px] font-black uppercase tracking-[0.15em] mt-4">
+        <button 
+          onClick={onLogout}
+          className="flex items-center gap-4 w-full px-5 py-4 rounded-2xl text-white/40 hover:text-white hover:bg-white/5 transition-all text-[11px] font-black uppercase tracking-[0.15em] mt-4"
+        >
           <LogOut size={18} />
           Log Out
         </button>
