@@ -76,6 +76,7 @@ export default function SettingsPage() {
                   required 
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
+                  autoComplete="new-password"
                   placeholder="••••••••"
                   className="w-full pl-16 pr-16 py-5 bg-slate-50 border border-slate-100 rounded-3xl text-sm font-medium focus:outline-none focus:ring-4 focus:ring-[#22c55e]/5 transition-all outline-none"
                 />
@@ -99,6 +100,7 @@ export default function SettingsPage() {
                   required 
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  autoComplete="new-password"
                   placeholder="••••••••"
                   className="w-full pl-16 pr-16 py-5 bg-slate-50 border border-slate-100 rounded-3xl text-sm font-medium focus:outline-none focus:ring-4 focus:ring-[#22c55e]/5 transition-all outline-none"
                 />
