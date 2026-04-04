@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { GalleryItem } from "@/lib/products";
+import { GalleryItem } from "@/types";
 
 interface Props {
   items: GalleryItem[];
